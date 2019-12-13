@@ -73,11 +73,35 @@ class Person {
         + Should cause the the `tank` to go down taking `milesPerGallon` into account.
     - A car which runs out of `fuel` while driving can't drive any more distance:
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
-*/
+
+  
+        */
 
 class Car {
-
+    constructor(model, milesPerGallon){
+      this.model = model;
+      this.milesPerGallon = milesPerGallon;
+      this.tank = 0;
+      this.odometer = 0;
+    }
+fill(gallons){
+  this.tank = this.tank + gallons;
 }
+drive(distance){
+  let fuelUsed =  (distance/this.milesPerGallon);//how much fuel will be used
+    if(this.tank >= fuelUsed){
+      //if fuel used is less than the gas tank
+      this.odometer = this.odometer + distance;
+      this.tank = this.tank - (distance/this.milesPerGallon);
+    }else{
+       let milesAvailable = this.tank * this.milesPerGallon; //distance that can be traveled on current fuel
+       this.odometer = this.odometer + milesAvailable;
+       this.tank = 0;
+      return `I ran out of fuel at ${this.odometer}`;
+    }
+  }
+}
+
 
 /*
   TASK 3
@@ -92,6 +116,14 @@ class Car {
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
+    constructor(obj){
+      this.name = obj.name;
+      this.age = obj.age;
+      this.location = obj.location;
+    }
+    speak(){
+      return `Hello my name is ${this.name}, I am from ${this.location}`
+    }
 
 }
 
