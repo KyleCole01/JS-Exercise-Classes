@@ -155,8 +155,22 @@ class Instructor extends Lambdasian{
   grade(student, subject){
     return `${student.name} receives a perfect score on ${subject}`;
   }
+  stretchGrade(student){
+    var random = Math.random() * 30 //gives me a random number between 0 and 30
+    var posNeg = Math.random() < 0.5 ? -1 : 1; //gives me a 50% chance to be positive/50% to be negative
+    random = random * posNeg; // takes the random number and randomly makes it positive or negative
+    student.grade = student.grade + random; //randomly takes or adds between 0 and 30 points and assignes it to the value
+  }
 
 }
+/*
+  STRETCH PROBLEM (no tests!)
+    - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
+    - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
+    - Add a graduate method to a student.
+      + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
+      + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
+*/
 
 /*
   TASK 5
@@ -179,6 +193,7 @@ class Student extends Lambdasian{
     this.previousBackground = object.previousBackground;
     this.className = object.className;
     this.favSubjects = object.favSubjects;
+    this.grade = 90;
   }
   listSubjects(){
     return this.favSubjects.toString();
@@ -188,6 +203,14 @@ class Student extends Lambdasian{
   }
   sprintChallenge(subject){
     return `${this.name} has begun sprint challenge on ${subject}`;
+  }
+  graduate(){
+    if(this.grade >= 70){
+      return "You've Graduated"
+    }
+    else{
+      return "Need to study Harder"
+    }
   }
 
 }
@@ -215,8 +238,8 @@ class ProjectManager extends Instructor{
     standUp(channel){
       return `${this.name} announces to ${channel}, @channel standy times!`;
     }
-    debugsCode(student){
-      return `${this.name} debugs ${student.name}'s code on ${student.subject}`;
+    debugsCode(student, subject){
+      return `${this.name} debugs ${student.name}'s code on ${subject}`;
     }
 
 
